@@ -112,6 +112,7 @@ class App extends Component {
   };
 
   panView = (e) => {
+    e.preventDefault();
     if (this.state.moving) {
       const canvas = document.getElementById("canvas");
       const localX = e.clientX - canvas.getBoundingClientRect().x;
@@ -142,6 +143,7 @@ class App extends Component {
   };
 
   downListener = (e) => {
+    e.preventDefault();
     const canvas = document.getElementById("canvas");
     const localX = e.clientX - canvas.getBoundingClientRect().x;
     const localY = e.clientY - canvas.getBoundingClientRect().y;
@@ -153,7 +155,8 @@ class App extends Component {
     this.setState({ moving: true, xyzOrigin: xyz });
   };
 
-  upListener = () => {
+  upListener = (e) => {
+    e.preventDefault();
     const { thetaBase, phiBase, matrixR } = this.state;
     const tpAsCartesian = spher2cart([thetaBase, phiBase]);
     const newTpCartesian = matrixRot(matrixR, tpAsCartesian);
