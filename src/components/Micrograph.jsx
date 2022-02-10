@@ -3,7 +3,7 @@ import "./micrograph.css";
 export default function Micrograph(props) {
   const { magnification, primary_microconstituent } = props.metaSelected;
   return (
-    <div className="micrograph" id="micrograph">
+    <div className="micrograph invisible" id="micrograph">
       <img
         src={`${process.env.PUBLIC_URL}/images/${props.filename}.png`}
         alt="micrograph"

@@ -15,20 +15,26 @@ const colorKeys = {
 class Planet extends Component {
   handleMouseEnter = (e) => {
     e.preventDefault();
+    e.currentTarget.classList.add("hovered-point");
     this.props.actionFnct(this.props.id);
-    document.getElementById("micrograph").classList.remove("invisible");
+    const micro = document.getElementById("micrograph")
+    micro.classList.remove("invisible");
+    const { yPos, xPos, size } = this.props;
+    micro.style.top = `${Number.parseInt(yPos, 10) - 270 - size / 2}px`;
+    micro.style.left = `${Number.parseInt(xPos, 10) - 125}px`;
   };
 
   handleMouseLeave = (e) => {
     e.preventDefault();
+    e.currentTarget.classList.remove("hovered-point");
     document.getElementById("micrograph").classList.add("invisible");
   };
 
   render = () => {
-    const { id, yPos, xPos, size, zIndex, constituent } = this.props;
+    const { id, yPos, xPos, size, constituent } = this.props;
     return (
       <div
-        className="Planet"
+        className="planet"
         id={id}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
@@ -39,11 +45,10 @@ class Planet extends Component {
           height: `${size}px`,
           fontSize: `${0.5 * size}px`,
           backgroundImage: `url(${process.env.PUBLIC_URL}/images/${id}.png)`,
-          // zIndex: zIndex,
           border: `2px solid ${colorKeys[constituent]}`,
         }}
       >
-        {/* {this.props.id} */}
+
       </div>
     );
   };

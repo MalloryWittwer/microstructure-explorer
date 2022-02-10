@@ -163,6 +163,7 @@ class App extends Component {
       (localY - this.state.canvasSizeY / 2) / this.state.zoom,
     ];
     const xyz = invStereoProjection(XY);
+    canvas.style.cursor = "grabbing";
     this.setState({ moving: true, xyzOrigin: xyz });
   };
 
@@ -174,6 +175,8 @@ class App extends Component {
     const newTp = cart2spher(newTpCartesian);
     this.centerOnTP(newTp);
     const [newThetaBase, newPhiBAse] = newTp;
+    const canvas = document.getElementById("canvas");
+    canvas.style.cursor = "grab";
     this.setState({
       thetaBase: newThetaBase,
       phiBase: newPhiBAse,
@@ -190,7 +193,7 @@ class App extends Component {
     });
     // Fetch data coordinates
     fetch(
-      process.env.PUBLIC_URL + "/steel_embedding-tsne-vgg16-annealed-hard.json"
+      process.env.PUBLIC_URL + "/steel_embedding-tsne-vgg16-annealed-pp100.json"
     )
       .then((response) => response.json())
       .then((d) => {
@@ -232,7 +235,7 @@ class App extends Component {
 
     document
       // .getElementById("canvas")
-      .addEventListener("touchend", this.touch2Mouse, true);
+      .addEventListener("touchend", this.touch2Mouse, true);    
   };
 
   touch2Mouse = (e) => {

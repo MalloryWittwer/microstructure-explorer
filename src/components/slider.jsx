@@ -18,12 +18,14 @@ class Slider extends Component {
   handleMouseEnter = (e) => {
     e.preventDefault();
     this.props.signalZoomActive();
+    document.getElementById("canvas").style.cursor = "auto";
     document.getElementById("zoom-container").classList.remove("discret");
   };
 
   handleMouseLeave = (e) => {
     e.preventDefault();
     this.props.signalZoomDone();
+    document.getElementById("canvas").style.cursor = "grab";
     document.getElementById("zoom-container").classList.add("discret");
   };
 
