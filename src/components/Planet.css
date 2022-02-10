@@ -1,0 +1,17 @@
+.Planet {
+    border-radius: 50%;
+    background: #282c34;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.0;
+    color: white;
+    /* border: 2px solid aliceblue; */
+    background-size: cover;
+  }
+  
+  /* .Planet:hover {
+    background-color: blueviolet;
+    cursor: pointer;
+  } */
