@@ -223,17 +223,33 @@ class App extends Component {
 
     // PAN VIA TOUCH
     document
-      .getElementById("canvas")
-      .addEventListener("touchstart", this.downListener, { passive: true });
+      // .getElementById("canvas")
+      .addEventListener("touchstart", this.touch2Mouse, true);
 
     document
-      .getElementById("canvas")
-      .addEventListener("touchmove", this.panView, { passive: true });
+      // .getElementById("canvas")
+      .addEventListener("touchmove", this.touch2Mouse, true);
 
     document
-      .getElementById("canvas")
-      .addEventListener("touchend", this.upListener);
+      // .getElementById("canvas")
+      .addEventListener("touchend", this.touch2Mouse, true);
   };
+
+  touch2Mouse = (e) => {
+    const theTouch = e.changedTouches[0];
+    let mouseEv;
+    switch(e.type)
+    {
+      case "touchstart": mouseEv="mousedown"; break;  
+      case "touchend":   mouseEv="mouseup"; break;
+      case "touchmove":  mouseEv="mousemove"; break;
+      default: return;
+    }
+    const mouseEvent = document.createEvent("MouseEvent");
+    // mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+    theTouch.target.dispatchEvent(mouseEvent);
+    e.preventDefault();
+  }
 
   render = () => {
     return (
