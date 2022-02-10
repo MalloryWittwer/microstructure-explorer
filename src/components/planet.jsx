@@ -13,10 +13,15 @@ const colorKeys = {
 };
 
 class Planet extends Component {
-  handleOnClick = (e) => {
+  handleMouseEnter = (e) => {
     e.preventDefault();
     this.props.actionFnct(this.props.id);
-    console.log('hovered')
+    document.getElementById("micrograph").classList.remove("invisible");
+  };
+
+  handleMouseLeave = (e) => {
+    e.preventDefault();
+    document.getElementById("micrograph").classList.add("invisible");
   };
 
   render = () => {
@@ -25,14 +30,11 @@ class Planet extends Component {
       <div
         className="Planet"
         id={id}
-        onMouseEnter={this.handleOnClick}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         style={{
-          top: `${
-            Number.parseInt(yPos, 10) - size / 2
-          }px`,
-          left: `${
-            Number.parseInt(xPos, 10) - size / 2
-          }px`,
+          top: `${Number.parseInt(yPos, 10) - size / 2}px`,
+          left: `${Number.parseInt(xPos, 10) - size / 2}px`,
           width: `${size}px`,
           height: `${size}px`,
           fontSize: `${0.5 * size}px`,

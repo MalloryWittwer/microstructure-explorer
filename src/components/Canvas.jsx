@@ -39,10 +39,10 @@ export default function Canvas(props) {
         step={10}
         default={600}
       />
-      {/* <Micrograph
+      <Micrograph
         filename={props.activeID}
         metaSelected={props.metaSelected}
-      /> */}
+      />
     </div>
   );
 }

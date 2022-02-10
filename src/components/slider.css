@@ -1,0 +1,41 @@
+.zoom-container {
+  position: absolute;
+  padding: 10px;
+  top: 10px;
+  left: 10px;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #282c34;
+}
+
+label {
+  margin: 0 10px;
+  color: aliceblue;
+  white-space: nowrap;
+}
+
+input[type="range"] {
+  width: 400px;
+  margin-left: 10px;
+  -webkit-appearance: none;
+  height: 10px;
+  border-radius: 5px;
+  background: rgb(22, 22, 22);
+  outline: none;
+}
+
+input[type="range"]:hover {
+  opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 18px;
+  background: #bdfd00;
+  cursor: pointer;
+}

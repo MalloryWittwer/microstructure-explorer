@@ -1,6 +1,6 @@
 {
-  "short_name": "FLOAT",
-  "name": "Create FLOAT App Sample",
+  "short_name": "Microstructure-explorer",
+  "name": "Create microstructure explorer app",
   "icons": [
     {
       "src": "favicon.ico",

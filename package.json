@@ -1,6 +1,6 @@
 {
-  "homepage": "https://mallorywittwer.github.io/stereo-navigator",
-  "name": "stereo-navigator",
+  "homepage": "https://mallorywittwer.github.io/microstructure-explorer",
+  "name": "microstructure-explorer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,15 +1,13 @@
 import React, { Component } from "react";
+import { rotationMatrix } from 'mathjs'
 import {
   spher2cart,
   cart2spher,
   stereoProjection,
   invStereoProjection,
   reBase,
-  // rotX,
-  // rotY,
   matrixRot,
   angleBetweenVectors,
-  rodriguesRotMat,
   crossVectorNormed,
   arraysEqual,
 } from "./utils";
@@ -28,8 +26,6 @@ class App extends Component {
       phiBase: 0,
       thetaBase: Math.PI,
       activeID: 0,
-      // stereoFactor: 0.6,
-      stereoFactor: 1.0,
       metadata: [],
       metaSelected: {
         id: 0,
@@ -76,92 +72,41 @@ class App extends Component {
     this.setState({ visibleChildren: children });
   };
 
-  // navByKeys = (event) => {
-  //   event.preventDefault();
-  //   let delta = (2 * Math.PI) / 180;
-  //   let rotFnct;
-  //   switch (event.which) {
-  //     case 37:
-  //       rotFnct = rotY;
-  //       delta = -delta;
-  //       break;
-  //     case 38:
-  //       rotFnct = rotX;
-  //       break;
-  //     case 39:
-  //       rotFnct = rotY;
-  //       break;
-  //     case 40:
-  //       rotFnct = rotX;
-  //       delta = -delta;
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  //   const movedData = {};
-  //   for (const [id, rtp] of Object.entries(this.state.data)) {
-  //     const dataCartesian = spher2cart(rtp);
-  //     const dataCartesianRotated = rotFnct(dataCartesian, delta);
-  //     movedData[`${id}`] = cart2spher(dataCartesianRotated);
-  //   }
-  //   this.setState({ data: movedData }, this.updateOptions);
-  // };
-
-  centerOnRTP = (rtp) => {
-    this.setState({ thetaBase: rtp[1], phiBase: rtp[2] }, this.reCenterData);
+  centerOnTP = (tp) => {
+    this.setState({ thetaBase: tp[0], phiBase: tp[1] }, this.reCenterData);
   };
 
   centerOnID = (idClicked) => {
-    const { data } = this.state;
-    // const rtp = data[Object.keys(data).find((id) => id === `${idClicked}`)];
-
     const meta = this.state.metadata.filter(
       (x) => x.id === Number.parseInt(idClicked, 10)
     )[0];
-
     this.setState({ activeID: idClicked, metaSelected: meta });
-    // this.centerOnRTP(rtp);
   };
 
   reCenterData = () => {
     const { phiBase, thetaBase } = this.state;
     const centeredData = {};
-    for (const [id, rtp] of Object.entries(this.state.data)) {
-      const dataRot = reBase(spher2cart(rtp), phiBase, thetaBase);
+    for (const [id, tp] of Object.entries(this.state.data)) {
+      const dataRot = reBase(spher2cart(tp), phiBase, thetaBase);
       centeredData[`${id}`] = cart2spher(dataRot);
     }
     this.setState({ data: centeredData }, this.updateOptions);
   };
 
   projectData = () => {
-    const { data, stereoFactor } = this.state;
-
-    let zLocs = [];
-    for (const [_, rtp] of Object.entries(data)) {
-      const zval = rtp[0] * Math.cos(rtp[1]);
-      zLocs.push(zval);
-    }
-
-    const min = Math.min(...zLocs);
-    zLocs = zLocs.map((x) => x - min);
-    const max = Math.max(...zLocs);
-    zLocs = zLocs.map((x) => Number.parseInt((x / max) * zLocs.length, 10));
-
+    const { data } = this.state;
     const rawProjectedData = [];
-    let counter = 0;
-    for (const [id, rtp] of Object.entries(data)) {
-      const dataProjected = stereoProjection(spher2cart(rtp), stereoFactor);
-      const zIndex = zLocs[counter];
-      counter = counter + 1;
-      rawProjectedData.push({ id: id, data: dataProjected, zIndex: zIndex });
+    for (const [id, tp] of Object.entries(data)) {
+      const dataProjected = stereoProjection(spher2cart(tp));
+      rawProjectedData.push({ id: id, data: dataProjected });
     }
     this.setState({ rawProjectedData: rawProjectedData }, this.manageZoom);
   };
 
   updateOptions = () => {
     const options = [];
-    for (const [id, rtp] of Object.entries(this.state.data)) {
-      options.push({ value: rtp, label: id });
+    for (const [id, tp] of Object.entries(this.state.data)) {
+      options.push({ value: tp, label: id });
     }
     this.setState({ options: options }, this.projectData);
   };
@@ -177,17 +122,15 @@ class App extends Component {
       ];
       const xyz = invStereoProjection(XY);
 
-      if (arraysEqual(xyz, this.state.xyzOrigin)) {
-        return;
-      }
+      if (arraysEqual(xyz, this.state.xyzOrigin)) {return}
 
       const cvNormed = crossVectorNormed(this.state.xyzOrigin, xyz);
       const angle = angleBetweenVectors(xyz, this.state.xyzOrigin);
-      const matrixR = rodriguesRotMat(cvNormed, angle);
+      const matrixR = rotationMatrix(angle, cvNormed);
 
       const movedData = {};
-      for (const [id, rtp] of Object.entries(this.state.data)) {
-        const dataCartesian = spher2cart(rtp);
+      for (const [id, tp] of Object.entries(this.state.data)) {
+        const dataCartesian = spher2cart(tp);
         const dataCartesianRotated = matrixRot(matrixR, dataCartesian);
         movedData[`${id}`] = cart2spher(dataCartesianRotated);
       }
@@ -212,12 +155,11 @@ class App extends Component {
 
   upListener = () => {
     const { thetaBase, phiBase, matrixR } = this.state;
-    const rtpAsCartesian = spher2cart([1, thetaBase, phiBase]);
-    const newRtpCartesian = matrixRot(matrixR, rtpAsCartesian);
-    const newRtp = cart2spher(newRtpCartesian);
-    this.centerOnRTP(newRtp);
-    const [_, newThetaBase, newPhiBAse] = newRtp;
-
+    const tpAsCartesian = spher2cart([thetaBase, phiBase]);
+    const newTpCartesian = matrixRot(matrixR, tpAsCartesian);
+    const newTp = cart2spher(newTpCartesian);
+    this.centerOnTP(newTp);
+    const [newThetaBase, newPhiBAse] = newTp;
     this.setState({
       thetaBase: newThetaBase,
       phiBase: newPhiBAse,
@@ -237,15 +179,11 @@ class App extends Component {
       process.env.PUBLIC_URL + "/steel_embedding-tsne-vgg16-annealed-hard.json"
     )
       .then((response) => response.json())
-      .then((d) => {
-        this.setState({ data: d }, this.updateOptions);
-      });
+      .then((d) => {this.setState({ data: d }, this.updateOptions)});
     // Fetch metadata 
     fetch(process.env.PUBLIC_URL + "/micro_metadata-new.json")
       .then((response) => response.json())
-      .then((d) => {
-        this.setState({ metadata: d });
-      });
+      .then((d) => { this.setState({ metadata: d }) });
 
     // document.addEventListener("keydown", this.navByKeys);
     document
@@ -272,7 +210,7 @@ class App extends Component {
 
     document
       .getElementById("canvas")
-      .addEventListener("touchmove", this.panView, { passive: true });
+      .addEventListener("touchmove", this.panView);
 
     document
       .getElementById("canvas")
@@ -282,41 +220,6 @@ class App extends Component {
   render = () => {
     return (
       <div className="App">
-        {/* <div className="side"> */}
-          {/* <div className="wrapper"> */}
-            {/* <h1>High-carbon steel microstructure explorer</h1> */}
-            {/* <Dropdown
-            label="Center on"
-            actionFnct={this.centerOnRTP}
-            options={this.state.options}
-          /> */}
-            {/* <Micrograph
-              filename={this.state.activeID}
-              metaSelected={this.state.metaSelected}
-            /> */}
-          {/* </div> */}
-          {/* <table>
-            <tbody>
-              <tr
-                style={{
-                  color: "aliceblue",
-                  opacity: "0.8",
-                  paddingTop: "18px",
-                }}
-              >
-                <td style={{ padding: "12px" }}>Dataset:</td>
-                <td>
-                  <p>
-                    UHCS dataset available on{" "}
-                    <a href="https://hdl.handle.net/11256/940">
-                      materialsdata.nist.gov
-                    </a>
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table> */}
-        {/* </div> */}
         <Canvas
           visibleChildren={this.state.visibleChildren}
           planetSize={this.state.planetSize}
