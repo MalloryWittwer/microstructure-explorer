@@ -15,9 +15,26 @@ class Slider extends Component {
     slider.value = this.props.default;
   }
 
+  handleMouseEnter = (e) => {
+    e.preventDefault();
+    this.props.signalZoomActive();
+    document.getElementById("zoom-container").classList.remove("discret");
+  };
+
+  handleMouseLeave = (e) => {
+    e.preventDefault();
+    this.props.signalZoomDone();
+    document.getElementById("zoom-container").classList.add("discret");
+  };
+
   render() {
     return (
-      <div className="zoom-container">
+      <div
+        id="zoom-container"
+        className="zoom-container"
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+      >
         <label htmlFor={this.props.handle}>{this.props.label}</label>
         <input
           type="range"

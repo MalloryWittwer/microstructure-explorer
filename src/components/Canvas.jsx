@@ -33,6 +33,8 @@ export default function Canvas(props) {
       <Slider
         label="Zoom"
         actionFnct={props.sliderActionFnct}
+        signalZoomActive={props.sliderSignalZoomActive}
+        signalZoomDone={props.sliderSignalZoomDone}
         handle="zoom-slider"
         min={10}
         max={2000}

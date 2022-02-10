@@ -9,11 +9,12 @@
   justify-content: center;
   align-items: center;
   background: #282c34;
+  border-radius: 5px;
+  color: aliceblue;
 }
 
 label {
-  margin: 0 10px;
-  color: aliceblue;
+  margin: 0 5px;
   white-space: nowrap;
 }
 
@@ -23,7 +24,7 @@ input[type="range"] {
   -webkit-appearance: none;
   height: 10px;
   border-radius: 5px;
-  background: rgb(22, 22, 22);
+  background: rgb(70, 80, 90);
   outline: none;
 }
 
@@ -36,6 +37,12 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 12px;
   height: 18px;
-  background: #bdfd00;
+  background: aliceblue;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.discret {
+  opacity: 0.5;
+  transition: 1s;
 }

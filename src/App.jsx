@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { rotationMatrix } from 'mathjs'
+import { rotationMatrix } from "mathjs";
 import {
   spher2cart,
   cart2spher,
@@ -35,6 +35,14 @@ class App extends Component {
     };
   }
 
+  setZoomActive = () => {
+    this.setState({ zooming: true });
+  };
+
+  setZoomDone = () => {
+    this.setState({ zooming: false });
+  };
+
   zoomSlider = (z) => {
     const newZoom = Math.max(150, z);
     this.setState(
@@ -44,7 +52,7 @@ class App extends Component {
       },
       this.manageZoom
     );
-  }
+  };
 
   zoomWheel = (e) => {
     const newZoom = Math.max(150, this.state.zoom + e.deltaY);
@@ -112,7 +120,6 @@ class App extends Component {
   };
 
   panView = (e) => {
-    e.preventDefault();
     if (this.state.moving) {
       const canvas = document.getElementById("canvas");
       const localX = e.clientX - canvas.getBoundingClientRect().x;
@@ -123,7 +130,9 @@ class App extends Component {
       ];
       const xyz = invStereoProjection(XY);
 
-      if (arraysEqual(xyz, this.state.xyzOrigin)) {return}
+      if (arraysEqual(xyz, this.state.xyzOrigin)) {
+        return;
+      }
 
       const cvNormed = crossVectorNormed(this.state.xyzOrigin, xyz);
       const angle = angleBetweenVectors(xyz, this.state.xyzOrigin);
@@ -143,7 +152,9 @@ class App extends Component {
   };
 
   downListener = (e) => {
-    e.preventDefault();
+    if (this.state.zooming) {
+      return;
+    }
     const canvas = document.getElementById("canvas");
     const localX = e.clientX - canvas.getBoundingClientRect().x;
     const localY = e.clientY - canvas.getBoundingClientRect().y;
@@ -174,19 +185,23 @@ class App extends Component {
     // Adjust canvas width to full-screen
     const canvas = document.getElementById("canvas");
     this.setState({
-      canvasSizeX: canvas.getBoundingClientRect().width, 
+      canvasSizeX: canvas.getBoundingClientRect().width,
       canvasSizeY: canvas.getBoundingClientRect().height,
-    })
+    });
     // Fetch data coordinates
     fetch(
       process.env.PUBLIC_URL + "/steel_embedding-tsne-vgg16-annealed-hard.json"
     )
       .then((response) => response.json())
-      .then((d) => {this.setState({ data: d }, this.updateOptions)});
-    // Fetch metadata 
+      .then((d) => {
+        this.setState({ data: d }, this.updateOptions);
+      });
+    // Fetch metadata
     fetch(process.env.PUBLIC_URL + "/micro_metadata-new.json")
       .then((response) => response.json())
-      .then((d) => { this.setState({ metadata: d }) });
+      .then((d) => {
+        this.setState({ metadata: d });
+      });
 
     // document.addEventListener("keydown", this.navByKeys);
     document
@@ -200,7 +215,7 @@ class App extends Component {
 
     document
       .getElementById("canvas")
-      .addEventListener("mousemove", this.panView, { passive: true });
+      .addEventListener("mousemove", this.panView);
 
     document
       .getElementById("canvas")
@@ -209,11 +224,11 @@ class App extends Component {
     // PAN VIA TOUCH
     document
       .getElementById("canvas")
-      .addEventListener("touchstart", this.downListener);
+      .addEventListener("touchstart", this.downListener, { passive: true });
 
     document
       .getElementById("canvas")
-      .addEventListener("touchmove", this.panView);
+      .addEventListener("touchmove", this.panView, { passive: true });
 
     document
       .getElementById("canvas")
@@ -229,6 +244,8 @@ class App extends Component {
           actionFnct={this.centerOnID}
           metadata={this.state.metadata}
           sliderActionFnct={this.zoomSlider}
+          sliderSignalZoomActive={this.setZoomActive}
+          sliderSignalZoomDone={this.setZoomDone}
           activeID={this.state.activeID}
           metaSelected={this.state.metaSelected}
         />
