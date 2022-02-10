@@ -10,6 +10,7 @@ export default function Micrograph(props) {
       />
       <p className="magnification">{magnification}</p>
       <p className="constituents">{primary_microconstituent}</p>
+      <div id="triangle"></div>
     </div>
   );
 }

@@ -14,14 +14,17 @@ const colorKeys = {
 
 class Planet extends Component {
   handleMouseEnter = (e) => {
+    const { yPos, xPos, size, constituent } = this.props;
     e.preventDefault();
     e.currentTarget.classList.add("hovered-point");
     this.props.actionFnct(this.props.id);
-    const micro = document.getElementById("micrograph")
+    const micro = document.getElementById("micrograph");
     micro.classList.remove("invisible");
-    const { yPos, xPos, size } = this.props;
     micro.style.top = `${Number.parseInt(yPos, 10) - 270 - size / 2}px`;
     micro.style.left = `${Number.parseInt(xPos, 10) - 125}px`;
+    micro.style.borderColor = `${colorKeys[constituent]}`;
+    const triangle = document.getElementById("triangle");
+    triangle.style.borderTopColor = `${colorKeys[constituent]}`;
   };
 
   handleMouseLeave = (e) => {
