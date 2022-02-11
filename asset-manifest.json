@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/microstructure-explorer/static/css/main.a126e7af.css",
-    "main.js": "/microstructure-explorer/static/js/main.027e5bcd.js",
+    "main.css": "/microstructure-explorer/static/css/main.98945bbb.css",
+    "main.js": "/microstructure-explorer/static/js/main.488313f9.js",
     "static/js/787.ed5ea5c7.chunk.js": "/microstructure-explorer/static/js/787.ed5ea5c7.chunk.js",
     "index.html": "/microstructure-explorer/index.html",
-    "main.a126e7af.css.map": "/microstructure-explorer/static/css/main.a126e7af.css.map",
-    "main.027e5bcd.js.map": "/microstructure-explorer/static/js/main.027e5bcd.js.map",
+    "main.98945bbb.css.map": "/microstructure-explorer/static/css/main.98945bbb.css.map",
+    "main.488313f9.js.map": "/microstructure-explorer/static/js/main.488313f9.js.map",
     "787.ed5ea5c7.chunk.js.map": "/microstructure-explorer/static/js/787.ed5ea5c7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a126e7af.css",
-    "static/js/main.027e5bcd.js"
+    "static/css/main.98945bbb.css",
+    "static/js/main.488313f9.js"
   ]
 }
