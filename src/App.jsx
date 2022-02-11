@@ -169,19 +169,8 @@ class App extends Component {
 
   upListener = (e) => {
     e.preventDefault();
-    const { thetaBase, phiBase, matrixR } = this.state;
-    const tpAsCartesian = spher2cart([thetaBase, phiBase]);
-    const newTpCartesian = matrixRot(matrixR, tpAsCartesian);
-    const newTp = cart2spher(newTpCartesian);
-    this.centerOnTP(newTp);
-    const [newThetaBase, newPhiBAse] = newTp;
-    const canvas = document.getElementById("canvas");
-    canvas.style.cursor = "grab";
-    this.setState({
-      thetaBase: newThetaBase,
-      phiBase: newPhiBAse,
-      moving: false,
-    });
+    document.getElementById("canvas").style.cursor = "grab";
+    this.setState({ moving: false });
   };
 
   componentDidMount = () => {

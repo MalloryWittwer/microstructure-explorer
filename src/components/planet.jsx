@@ -2,14 +2,14 @@ import "./planet.css";
 import React, { Component } from "react";
 
 const colorKeys = {
-  pearlite: "red",
-  martensite: "orange",
-  network: "blue",
-  "pearlite+spheroidite": "black",
-  "pearlite+widmanstatten": "pink",
-  spheroidite: "green",
-  "spheroidite+widmanstatten": "yellow",
-  undefined: "purple",
+  pearlite: "#ffaaaa",
+  martensite: "#ffccaa",
+  network: "#aab1ff",
+  "pearlite+spheroidite": "#aaf8ff",
+  "pearlite+widmanstatten": "#f6aaff",
+  spheroidite: "#aaffbf",
+  "spheroidite+widmanstatten": "#d4ffaa",
+  undefined: "#ffe8aa",
 };
 
 class Planet extends Component {

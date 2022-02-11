@@ -6,9 +6,9 @@ class Slider extends Component {
     this.props.actionFnct(event.target.value);
   };
 
-  changeInputLabel = (event) => {
-    event.target.nextElementSibling.value = `${event.target.value}`;
-  };
+  // changeInputLabel = (event) => {
+  //   event.target.nextElementSibling.value = `${event.target.value}`;
+  // };
 
   componentDidMount() {
     const slider = document.getElementById(`${this.props.handle}`);
@@ -46,10 +46,10 @@ class Slider extends Component {
           max={this.props.max}
           step={this.props.step}
           onChange={this.handleUpdate}
-          onInput={this.changeInputLabel}
+          // onInput={this.changeInputLabel}
           id={this.props.handle}
         />
-        <output>{this.props.default}</output>
+        {/* <output>{this.props.default}</output> */}
       </div>
     );
   }
