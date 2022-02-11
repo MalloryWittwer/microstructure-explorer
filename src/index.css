@@ -34,3 +34,22 @@ body {
 a:hover {
   color: rgb(150, 177, 201);
 } */
+
+#credits {
+  color: aliceblue;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 0px; 
+  height: 0px; 
+  border-left: 40px solid transparent;
+  border-top: 40px solid transparent;
+  border-right: 40px solid #282c34;
+  border-bottom: 40px solid #282c34;
+}
+
+#github {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+}

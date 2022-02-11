@@ -41,10 +41,16 @@ export default function Canvas(props) {
         step={10}
         default={600}
       />
-      <Micrograph
-        filename={props.activeID}
-        metaSelected={props.metaSelected}
-      />
+      <Micrograph filename={props.activeID} metaSelected={props.metaSelected} />
+      <div id="credits">
+        <a href="https://github.com/MalloryWittwer/microstructure-explorer">
+          <img
+            src={`${process.env.PUBLIC_URL}/github.png`}
+            alt="git"
+            id="github"
+          />
+        </a>
+      </div>
     </div>
   );
 }
