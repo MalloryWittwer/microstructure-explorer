@@ -168,9 +168,22 @@ class App extends Component {
   };
 
   downListenerTouch = (e) => {
+    e.preventDefault();
     console.log("TOUCHED");
     document.getElementById("canvas").style.background = "red";
   };
+
+  panViewTouch = (e) => {
+    e.preventDefault();
+    console.log('MOVING');
+    document.getElementById("canvas").style.background = "blue";
+  }
+
+  upListenerTouch = (e) => {
+    e.preventDefault();
+    console.log('STOPPED');
+    document.getElementById("canvas").style.background = "green";
+  }
 
   upListener = (e) => {
     e.preventDefault();
@@ -219,34 +232,18 @@ class App extends Component {
       .addEventListener("mouseup", this.upListener);
 
     // PAN VIA TOUCH
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchstart", this.downListenerTouch, { passive: true });
+    document
+      .getElementById("canvas")
+      .addEventListener("touchstart", this.downListenerTouch, false);
 
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchmove", this.panView, true);
+    document
+      .getElementById("canvas")
+      .addEventListener("touchmove", this.panView, false);
 
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchend", this.upListener, true);
+    document
+      .getElementById("canvas")
+      .addEventListener("touchend", this.upListener, false);
   };
-
-  // touch2Mouse = (e) => {
-  //   const theTouch = e.changedTouches[0];
-  //   let mouseEv;
-  //   switch(e.type)
-  //   {
-  //     case "touchstart": mouseEv="mousedown"; break;
-  //     case "touchend":   mouseEv="mouseup"; break;
-  //     case "touchmove":  mouseEv="mousemove"; break;
-  //     default: return;
-  //   }
-  //   const mouseEvent = document.createEvent("MouseEvent");
-  //   // mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
-  //   theTouch.target.dispatchEvent(mouseEvent);
-  //   e.preventDefault();
-  // }
 
   render = () => {
     return (
