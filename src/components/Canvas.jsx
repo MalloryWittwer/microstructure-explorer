@@ -15,7 +15,10 @@ export default function Canvas(props) {
   };
 
   return (
-    <div id="canvas">
+    <div 
+      id="canvas"
+      
+    >
       {props.visibleChildren.map((child) => {
         return (
           <Planet

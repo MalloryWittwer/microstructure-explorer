@@ -167,6 +167,11 @@ class App extends Component {
     this.setState({ moving: true, xyzOrigin: xyz });
   };
 
+  downListenerTouch = (e) => {
+    console.log("TOUCHED");
+    document.getElementById("canvas").style.background = "red";
+  };
+
   upListener = (e) => {
     e.preventDefault();
     document.getElementById("canvas").style.cursor = "grab";
@@ -214,34 +219,34 @@ class App extends Component {
       .addEventListener("mouseup", this.upListener);
 
     // PAN VIA TOUCH
-    document
-      // .getElementById("canvas")
-      .addEventListener("touchstart", this.touch2Mouse, true);
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchstart", this.downListenerTouch, { passive: true });
 
-    document
-      // .getElementById("canvas")
-      .addEventListener("touchmove", this.touch2Mouse, true);
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchmove", this.panView, true);
 
-    document
-      // .getElementById("canvas")
-      .addEventListener("touchend", this.touch2Mouse, true);    
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchend", this.upListener, true);
   };
 
-  touch2Mouse = (e) => {
-    const theTouch = e.changedTouches[0];
-    let mouseEv;
-    switch(e.type)
-    {
-      case "touchstart": mouseEv="mousedown"; break;  
-      case "touchend":   mouseEv="mouseup"; break;
-      case "touchmove":  mouseEv="mousemove"; break;
-      default: return;
-    }
-    const mouseEvent = document.createEvent("MouseEvent");
-    // mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
-    theTouch.target.dispatchEvent(mouseEvent);
-    e.preventDefault();
-  }
+  // touch2Mouse = (e) => {
+  //   const theTouch = e.changedTouches[0];
+  //   let mouseEv;
+  //   switch(e.type)
+  //   {
+  //     case "touchstart": mouseEv="mousedown"; break;
+  //     case "touchend":   mouseEv="mouseup"; break;
+  //     case "touchmove":  mouseEv="mousemove"; break;
+  //     default: return;
+  //   }
+  //   const mouseEvent = document.createEvent("MouseEvent");
+  //   // mouseEvent.initMouseEvent(mouseEv, true, true, window, 1, theTouch.screenX, theTouch.screenY, theTouch.clientX, theTouch.clientY, false, false, false, false, 0, null);
+  //   theTouch.target.dispatchEvent(mouseEvent);
+  //   e.preventDefault();
+  // }
 
   render = () => {
     return (
