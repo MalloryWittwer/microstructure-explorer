@@ -175,15 +175,15 @@ class App extends Component {
 
   panViewTouch = (e) => {
     e.preventDefault();
-    console.log('MOVING');
+    console.log("MOVING");
     document.getElementById("canvas").style.background = "blue";
-  }
+  };
 
   upListenerTouch = (e) => {
     e.preventDefault();
-    console.log('STOPPED');
+    console.log("STOPPED");
     document.getElementById("canvas").style.background = "green";
-  }
+  };
 
   upListener = (e) => {
     e.preventDefault();
@@ -221,28 +221,40 @@ class App extends Component {
     // PAN OVER CANVAS EVENTS
     document
       .getElementById("canvas")
-      .addEventListener("mousedown", this.downListener);
+      .addEventListener("pointerdown", this.downListener);
 
     document
       .getElementById("canvas")
-      .addEventListener("mousemove", this.panView);
+      .addEventListener("pointermove", this.panView);
 
     document
       .getElementById("canvas")
-      .addEventListener("mouseup", this.upListener);
+      .addEventListener("pointerup", this.upListener);
 
     // PAN VIA TOUCH
-    document
-      .getElementById("canvas")
-      .addEventListener("touchstart", this.downListenerTouch, false);
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchstart", this.downListenerTouch, false);
 
-    document
-      .getElementById("canvas")
-      .addEventListener("touchmove", this.panView, false);
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchmove", this.panView, false);
 
-    document
-      .getElementById("canvas")
-      .addEventListener("touchend", this.upListener, false);
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("touchend", this.upListener, false);
+
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("pointerdown", this.downListenerTouch, false);
+
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("pointermove", this.panViewTouch, false);
+
+    // document
+    //   .getElementById("canvas")
+    //   .addEventListener("pointerup", this.upListenerTouch, false);
   };
 
   render = () => {
