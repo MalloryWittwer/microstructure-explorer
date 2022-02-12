@@ -12,6 +12,7 @@ import {
   arraysEqual,
 } from "./utils";
 import Canvas from "./components/canvas";
+import Slider from "./components/slider";
 
 class App extends Component {
   constructor(props) {
@@ -220,17 +221,31 @@ class App extends Component {
   render = () => {
     return (
       <div className="App">
+        <div className="zoom-wrapper">
+          <Slider
+            label="Zoom"
+            actionFnct={this.zoomSlider}
+            signalZoomActive={this.setZoomActive}
+            signalZoomDone={this.setZoomDone}
+            handle="zoom-slider"
+            min={10}
+            max={2000}
+            step={10}
+            default={600}
+          />
+        </div>
         <Canvas
           visibleChildren={this.state.visibleChildren}
           planetSize={this.state.planetSize}
           actionFnct={this.centerOnID}
           metadata={this.state.metadata}
-          sliderActionFnct={this.zoomSlider}
-          sliderSignalZoomActive={this.setZoomActive}
-          sliderSignalZoomDone={this.setZoomDone}
           activeID={this.state.activeID}
           metaSelected={this.state.metaSelected}
         />
+        <div id="dataset">
+          Dataset: UHCS dataset available on{" "}
+          <a href="https://hdl.handle.net/11256/940">materialsdata.nist.gov</a>.
+        </div>
       </div>
     );
   };

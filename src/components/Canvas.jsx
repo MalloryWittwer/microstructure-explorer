@@ -1,6 +1,5 @@
 import React from "react";
 import Planet from "./planet";
-import Slider from "./slider";
 import Micrograph from "./micrograph";
 
 export default function Canvas(props) {
@@ -30,17 +29,6 @@ export default function Canvas(props) {
           />
         );
       })}
-      <Slider
-        label="Zoom"
-        actionFnct={props.sliderActionFnct}
-        signalZoomActive={props.sliderSignalZoomActive}
-        signalZoomDone={props.sliderSignalZoomDone}
-        handle="zoom-slider"
-        min={10}
-        max={2000}
-        step={10}
-        default={600}
-      />
       <Micrograph filename={props.activeID} metaSelected={props.metaSelected} />
       <div id="credits">
         <a href="https://github.com/MalloryWittwer/microstructure-explorer">
@@ -50,9 +38,6 @@ export default function Canvas(props) {
             id="github"
           />
         </a>
-      </div>
-      <div id="dataset">
-        Dataset: UHCS dataset available on <a href="https://hdl.handle.net/11256/940">materialsdata.nist.gov</a>.
       </div>
     </div>
   );

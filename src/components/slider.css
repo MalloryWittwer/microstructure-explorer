@@ -1,8 +1,13 @@
-.zoom-container {
+.zoom-wrapper {
   position: absolute;
+  top: 1rem;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.zoom-container {
   padding: 10px;
-  top: 10px;
-  left: 10px;
   width: 100%;
   max-width: 300px;
   display: flex;
@@ -14,6 +19,7 @@
 }
 
 label {
+  font-size: 0.9rem;
   margin: 0 5px;
   white-space: nowrap;
 }
