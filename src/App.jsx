@@ -243,8 +243,17 @@ class App extends Component {
           metaSelected={this.state.metaSelected}
         />
         <div id="dataset">
-          Dataset: UHCS dataset available on{" "}
+          UHCS dataset:{" "}
           <a href="https://hdl.handle.net/11256/940">materialsdata.nist.gov</a>.
+        </div>
+        <div id="credits">
+          <a href="https://github.com/MalloryWittwer/microstructure-explorer">
+            <img
+              src={`${process.env.PUBLIC_URL}/github.png`}
+              alt="git"
+              id="github"
+            />
+          </a>
         </div>
       </div>
     );

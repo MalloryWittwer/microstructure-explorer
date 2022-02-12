@@ -24,7 +24,7 @@ body {
   background-color: aliceblue;
   position: relative;
   cursor: grab;
-  touch-action: none;
+  /* touch-action: none; */
 }
 
 #credits {
@@ -49,7 +49,7 @@ body {
 #dataset {
   color: #282c34;
   position: relative;
-  top: -2rem;
+  top: -30px;
   margin: 0;
   padding: 0;
   height: 0;

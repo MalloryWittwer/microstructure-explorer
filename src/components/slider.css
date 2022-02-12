@@ -1,6 +1,6 @@
 .zoom-wrapper {
   position: absolute;
-  top: 1rem;
+  top: 20px;
   display: flex;
   justify-content: center;
   z-index: 2;
