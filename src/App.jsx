@@ -121,6 +121,9 @@ class App extends Component {
 
   panView = (e) => {
     if (this.state.moving) {
+      const micro = document.getElementById("micrograph");
+      micro.classList.add("invisible");
+
       const canvas = document.getElementById("canvas");
       const localX = e.clientX - canvas.getBoundingClientRect().x;
       const localY = e.clientY - canvas.getBoundingClientRect().y;
@@ -165,24 +168,6 @@ class App extends Component {
     const xyz = invStereoProjection(XY);
     canvas.style.cursor = "grabbing";
     this.setState({ moving: true, xyzOrigin: xyz });
-  };
-
-  downListenerTouch = (e) => {
-    e.preventDefault();
-    console.log("TOUCHED");
-    document.getElementById("canvas").style.background = "red";
-  };
-
-  panViewTouch = (e) => {
-    e.preventDefault();
-    console.log("MOVING");
-    document.getElementById("canvas").style.background = "blue";
-  };
-
-  upListenerTouch = (e) => {
-    e.preventDefault();
-    console.log("STOPPED");
-    document.getElementById("canvas").style.background = "green";
   };
 
   upListener = (e) => {
@@ -230,31 +215,6 @@ class App extends Component {
     document
       .getElementById("canvas")
       .addEventListener("pointerup", this.upListener);
-
-    // PAN VIA TOUCH
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchstart", this.downListenerTouch, false);
-
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchmove", this.panView, false);
-
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("touchend", this.upListener, false);
-
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("pointerdown", this.downListenerTouch, false);
-
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("pointermove", this.panViewTouch, false);
-
-    // document
-    //   .getElementById("canvas")
-    //   .addEventListener("pointerup", this.upListenerTouch, false);
   };
 
   render = () => {

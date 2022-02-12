@@ -26,16 +26,6 @@ body {
   touch-action: none;
 }
 
-/* Credits to dataset */
-
-/* a {
-  color: rgb(173, 185, 196);
-}
-
-a:hover {
-  color: rgb(150, 177, 201);
-} */
-
 #credits {
   color: aliceblue;
   position: absolute;
@@ -53,4 +43,17 @@ a:hover {
   width: 20px;
   height: 20px;
   padding: 5px;
+}
+
+#dataset {
+  color: #282c34;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
+#dataset a:visited {
+  color: #282c34;
 }

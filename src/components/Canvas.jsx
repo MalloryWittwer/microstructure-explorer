@@ -15,10 +15,7 @@ export default function Canvas(props) {
   };
 
   return (
-    <div 
-      id="canvas"
-      
-    >
+    <div id="canvas">
       {props.visibleChildren.map((child) => {
         return (
           <Planet
@@ -53,6 +50,9 @@ export default function Canvas(props) {
             id="github"
           />
         </a>
+      </div>
+      <div id="dataset">
+        Dataset: UHCS dataset available on <a href="https://hdl.handle.net/11256/940">materialsdata.nist.gov</a>.
       </div>
     </div>
   );
