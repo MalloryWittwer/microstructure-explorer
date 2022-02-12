@@ -177,13 +177,18 @@ class App extends Component {
     this.setState({ moving: false });
   };
 
-  componentDidMount = () => {
-    // Adjust canvas width to full-screen
+  adjustCanvasSize = () => {
     const canvas = document.getElementById("canvas");
     this.setState({
       canvasSizeX: canvas.getBoundingClientRect().width,
       canvasSizeY: canvas.getBoundingClientRect().height,
-    });
+    }, this.updateOptions);
+  }
+
+  componentDidMount = () => {
+    // Adjust canvas width to full-screen
+    this.adjustCanvasSize();
+    window.addEventListener('resize', this.adjustCanvasSize);
     // Fetch data coordinates
     fetch(
       process.env.PUBLIC_URL + "/steel_embedding-tsne-vgg16-annealed-pp100.json"
